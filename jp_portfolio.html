@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Jatin Pardeshi | Cyber Security Professional</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <link rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: transparent;
+            --text-color: #c9d1d9;
+            --accent-color: #00f0ff;
+            --accent-alt: #ff00ff;
+            --border-color: #30363d;
+            --card-bg: rgba(22,27,34,0.85);
+            --header-font: 'Orbitron', sans-serif;
+            --body-font: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #0d1117; color: var(--text-color); font-family: var(--body-font); line-height: 1.6; overflow-x: hidden; }
+        #vanta-bg { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 4rem 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        h1, h2, h3 {
+            font-family: var(--header-font);
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+            font-weight: 700;
+        }
+        h2::before { content: '> '; color: var(--accent-alt); text-shadow: 0 0 8px var(--accent-alt); }
+
+        a { color: var(--accent-alt); text-decoration: none; transition: all 0.3s ease; }
+        a:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-color), 0 0 16px var(--accent-color); }
+
+        nav { position: sticky; top: 0; background: rgba(13,17,23,0.95); padding: 1rem 0; border-bottom: 1px solid var(--border-color); z-index: 1000; backdrop-filter: blur(10px); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: var(--header-font); font-size: 1.5rem; color: var(--accent-color); text-shadow: 0 0 10px var(--accent-color); }
+        .nav-logo span { color: var(--accent-alt); text-shadow: 0 0 10px var(--accent-alt); }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 2rem; }
+
+        #hero { min-height: 70vh; display: flex; align-items: center; }
+        .hero-content h1 { font-size: 3.0rem; margin: 1rem 0; }
+        .hero-content .subtitle { font-size: 1.2rem; color: var(--accent-alt); text-shadow: 0 0 8px var(--accent-alt), 0 0 16px var(--accent-alt); display: inline-block; }
+        .typing-cursor { display: inline-block; width: 10px; height: 1.2rem; background: var(--accent-color); animation: blink 0.7s infinite; margin-left: 5px; vertical-align: bottom; }
+        @keyframes blink { 0%,100% {opacity:1;} 50% {opacity:0;} }
+
+        .social-links a { font-size: 1.6rem; margin: 0 0.6rem; color: var(--accent-alt); text-shadow: 0 0 8px var(--accent-alt); }
+        .social-links a:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-color), 0 0 16px var(--accent-color); }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .skill-category { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; transition: all 0.3s ease; }
+        .skill-category:hover { border-color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 240, 255, 0.3); transform: translateY(-5px); }
+        .skill-category h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-alt); }
+        .skill-category ul { list-style: none; }
+        .skill-category li { padding: 0.3rem 0; color: var(--text-color); }
+        .skill-category li:before { content: "▹ "; color: var(--accent-color); }
+
+        .education-grid { display: grid; gap: 2rem; }
+        .education-item { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; }
+        
+        .job { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 2rem; }
+        .job h3 { color: var(--accent-color); margin-bottom: 0.5rem; text-shadow: 0 0 10px var(--accent-color); }
+        .job ul { margin-top: 1rem; margin-left: 1.5rem; }
+        .job li { margin-bottom: 0.5rem; }
+
+        .contact-email { font-family: var(--header-font); font-size: 1.0rem; display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: 5px; margin-bottom: 1rem; color: var(--accent-alt); text-shadow: 0 0 8px var(--accent-alt); }
+
+        .btn {
+            background: linear-gradient(90deg, #ff00ff, #00f0ff);
+            color: #0d1117;
+            font-family: var(--header-font);
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 0 10px #ff00ff, 0 0 20px #00f0ff;
+            cursor: pointer;
+        }
+        .btn:hover {
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00f0ff;
+            transform: scale(1.02);
+        }
+
+        /* Projects Section */
+        .projects-filter { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn { 
+            background: var(--card-bg); 
+            color: var(--text-color); 
+            border: 1px solid var(--border-color); 
+            padding: 0.5rem 1.5rem; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            font-family: var(--header-font);
+        }
+        .filter-btn:hover, .filter-btn.active { 
+            background: linear-gradient(90deg, #ff00ff, #00f0ff);
+            color: #0d1117;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+        }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .project-card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            padding: 1.5rem; 
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-alt), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card:hover { 
+            border-color: var(--accent-color); 
+            box-shadow: 0 5px 25px rgba(0, 240, 255, 0.3);
+            transform: translateY(-10px);
+        }
+        .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+        .project-icon { font-size: 2rem; color: var(--accent-color); }
+        .project-links a { margin-left: 0.8rem; font-size: 1.2rem; }
+        .project-card h3 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .project-card p { margin-bottom: 1rem; color: #8b949e; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .project-tag { 
+            background: rgba(0, 240, 255, 0.1); 
+            color: var(--accent-color); 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 3px; 
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        /* Certifications Section */
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .cert-card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .cert-card:hover {
+            border-color: var(--accent-alt);
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        .cert-badge {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-alt), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .cert-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .cert-issuer { color: var(--accent-alt); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .cert-date { color: #8b949e; font-size: 0.85rem; }
+        .cert-link { 
+            display: inline-block; 
+            margin-top: 0.8rem; 
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Skills Matrix */
+        .skills-matrix { margin-top: 2rem; }
+        .skill-bar-container { margin-bottom: 1.5rem; }
+        .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .skill-bar-header span { font-family: var(--header-font); }
+        .skill-bar-bg { 
+            background: rgba(48, 54, 61, 0.5); 
+            height: 8px; 
+            border-radius: 10px; 
+            overflow: hidden;
+            position: relative;
+        }
+        .skill-bar-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--accent-alt), var(--accent-color));
+            border-radius: 10px;
+            transition: width 1s ease;
+            box-shadow: 0 0 10px var(--accent-color);
+            width: 0;
+        }
+
+        /* CTF Stats */
+        .ctf-stats { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 1.5rem; 
+            margin: 2rem 0;
+        }
+        .stat-box { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            padding: 1.5rem; 
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-box:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+        .stat-number { 
+            font-size: 2.2rem; 
+            font-family: var(--header-font); 
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        .stat-label { color: #8b949e; margin-top: 0.5rem; }
+
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); color: #8b949e; font-family: var(--header-font); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="vanta-bg"></div>
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">Jatin<span>.</span>dev</a>
+            <ul class="nav-links">
+                <li><a href="#about">01. About</a></li>
+                <li><a href="#skills">02. Skills</a></li>
+                <li><a href="#projects">03. Projects</a></li>
+                <li><a href="#certifications">04. Certifications</a></li>
+                <li><a href="#experience">05. Experience</a></li>
+                <li><a href="#education">06. Education</a></li>
+                <li><a href="#contact">07. social-links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+   <main class="container">
+    <section id="hero">
+        <div class="hero-content">
+
+            <p style="color: var(--accent-alt); font-family: var(--header-font); text-shadow: 0 0 6px var(--accent-alt);">
+                Hi, my name is
+            </p>
+
+            <h1>Jatin Pardeshi</h1>
+
+            <!-- Typing Animation -->
+            <div class="subtitle">
+                <span id="typing-text"></span>
+                <span class="typing-cursor">|</span>
+            </div>
+
+            <p>
+                Experienced professional with a strong network of over 600 LinkedIn connections built in less than two months. 
+                Skilled in encryption, decryption, penetration testing and developing real-world security tools during internships. 
+                Passionate about cybersecurity, blue teaming, and automation.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="social-links">
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/jatin-pardeshi-3a6994347" 
+                   target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/Jatin-pardeshi" 
+                   target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i>
+                </a>
+
+                <!-- TryHackMe -->
+                <a href="https://tryhackme.com/p/yourprofile" 
+                   target="_blank" rel="noopener">
+                    <i class="fas fa-flag"></i>
+                </a>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+
+        <section id="about" class="fade-in-section">
+            <h2>01. About Me</h2>
+            <p>Experienced professional with hands-on experience in live projects focused on encryption, decryption algorithms, and cybersecurity practices. Passionate about enhancing skills in threat detection, incident response, and secure digital infrastructures. Currently seeking opportunities to contribute to a security-focused organization where I can apply my knowledge in penetration testing, vulnerability assessment, and security operations.</p>
+            
+            <div class="ctf-stats">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Security Projects</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-target="600">0</div>
+                    <div class="stat-label">LinkedIn Connections</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">GitHub Contributions</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="fade-in-section">
+            <h2>02. Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-shield-alt"></i> Security Fundamentals</h3>
+                    <ul>
+                        <li>Network Security</li>
+                        <li>Web Application Security</li>
+                        <li>Cryptography</li>
+                        <li>Threat Intelligence</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-bug"></i> Penetration Testing</h3>
+                    <ul>
+                        <li>Vulnerability Assessment</li>
+                        <li>OWASP Top 10</li>
+                        <li>Metasploit Framework</li>
+                        <li>Burp Suite</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-network-wired"></i> Network & Protocols</h3>
+                    <ul>
+                        <li>TCP/IP, DNS, HTTP/HTTPS</li>
+                        <li>Wireshark Analysis</li>
+                        <li>Firewall Configuration</li>
+                        <li>VPN & Tunneling</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <ul>
+                        <li>Python (Security Scripts)</li>
+                        <li>Bash Scripting</li>
+                        <li>SQL Injection Testing</li>
+                        <li>PowerShell</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud & Modern Security</h3>
+                    <ul>
+                        <li>Cloud Security (AWS/Azure)</li>
+                        <li>Container Security</li>
+                        <li>API Security</li>
+                        <li>Mobile Security</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Security Tools</h3>
+                    <ul>
+                        <li>Nmap, Nessus</li>
+                        <li>John the Ripper</li>
+                        <li>Hashcat</li>
+                        <li>SIEM Tools</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="skills-matrix">
+                <h3 style="margin-bottom: 1.5rem;">Proficiency Levels</h3>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-header">
+                        <span>Network Security & Protocols</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-header">
+                        <span>Cryptography & Encryption</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-header">
+                        <span>Web Application Security</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" data-width="75"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-header">
+                        <span>Python Security Scripting</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" data-width="70"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-header">
+                        <span>Threat Detection & Analysis</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar-fill" data-width="75"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="fade-in-section">
+            <h2>03. Security Projects</h2>
+            <p style="margin-bottom: 1.5rem;">Interactive showcase of my hands-on cybersecurity projects. Click on GitHub links to explore the code and documentation.</p>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="encryption">Encryption</button>
+                <button class="filter-btn" data-filter="network">Network Security</button>
+                <button class="filter-btn" data-filter="web">Web Security</button>
+                <button class="filter-btn" data-filter="tools">Security Tools</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <section id="certifications" class="fade-in-section">
+            <h2>04. Certifications & JOB Simulation</h2>
+            <p style="margin-bottom: 1.5rem;">Industry-recognized certifications demonstrating my commitment to continuous learning in cybersecurity.</p>
+            
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Introduction to Cyber security</h3>
+                    <div class="cert-issuer">Simplilearn / SkillUP </div>
+                    <div class="cert-date">Completed: 05 AUG 2024</div>
+                    <a href="https://www.linkedin.com/in/jatin-pardeshi-3a6994347" class="cert-link" target="_blank" rel="noopener">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Cybersecurity Analysis Job Simulation</h3>
+                    <div class="cert-issuer">TATA Group / Forage</div>
+                    <div class="cert-date">5 FEB, 2025</div>
+                    <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/ifobHAoMjQs9s6bKS/gmf3ypEXBj2wvfQWC_ifobHAoMjQs9s6bKS_eYwGo4G4g9A3TobDk_1738760203080_completion_certificate.pdf">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>GenAI Powered Data Analytics Job Simulation</h3>
+                    <div class="cert-issuer">TATA Group / Forage</div>
+                    <div class="cert-date">24 june, 2025</div>
+                    <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/ifobHAoMjQs9s6bKS/gMTdCXwDdLYoXZ3wG_ifobHAoMjQs9s6bKS_eYwGo4G4g9A3TobDk_1750781123059_completion_certificate.pdf">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                 <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Introduction to Large Language Models </h3>
+                    <div class="cert-issuer">Google Cloud Badge</div>
+                    <div class="cert-date">15 MAR, 2024</div>
+                    <a href="https://www.skills.google/public_profiles/74262420-6007-4dd5-bd06-456b7919ceab/badges/8333612?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Introduction to Generative AI </h3>
+                    <div class="cert-issuer">Google Cloud Badge</div>
+                    <div class="cert-date">15 MAR, 2024</div>
+                    <a href="https://www.skills.google/public_profiles/74262420-6007-4dd5-bd06-456b7919ceab/badges/8333018?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Introduction to Responsive AI </h3>
+                    <div class="cert-issuer">Google Cloud Badge</div>
+                    <div class="cert-date">7 MAY, 2025</div>
+                    <a href="https://www.skills.google/public_profiles/74262420-6007-4dd5-bd06-456b7919ceab/badges/15595642?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-lock"></i></div>
+                    <h3>GIMINI IN GOOGLE DOCS </h3>
+                    <div class="cert-issuer"> Google Cloud   Simplilearn / SkillUP</div>
+                    <div class="cert-date">Completed: 30 jul 2024</div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_gemini-in-google-docshow-the-gemini-ai-helpin-activity-7303054739817054208-ozI8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-bug"></i></div>
+                    <h3>GUVI python programing </h3>
+                    <div class="cert-issuer">Google for education Partner</div>
+                    <div class="cert-date">Completed: 16 NOV 2023 </div>
+                    <a href="https://lnkd.in/gH4UHrM2" class="cert-link" target="_blank" rel="noopener">View Profile <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-key"></i></div>
+                    <h3>Cyber Security Pledge For Students</h3>
+                    <div class="cert-issuer">ISEA Goverment of India</div>
+                    <div class="cert-date">Completed: 01 AUG 2023 </div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_my-first-certificate-that-i-earned-cyber-activity-7327207302573228032--pNl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg" class="cert-link" target="_blank" rel="noopener">View Certificate<i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-code"></i></div>
+                    <h3>CYBER SECURITY WORKSHOP</h3>
+                    <div class="cert-issuer">Pratibha Skill Development Center</div>
+                    <div class="cert-date">19 july 2025</div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_cyber-security-workshop-activity-7353806206336946177-HKyx?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg" class="cert-link" target="_blank" rel="noopener"> LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Network Fundamentals</h3>
+                    <div class="cert-issuer">Infosys / Springboard</div>
+                    <div class="cert-date">2 june 2025</div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_infosys-certificate-activity-7335329565105369089-bxOu?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>PYTHON programming Bootcamp</h3>
+                    <div class="cert-issuer">Indeed Inspiring Infotech</div>
+                    <div class="cert-date">6 AUG 2025</div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_python-programming-bootcamp-activity-7370060434181332992-CWsW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-cloud"></i></div>
+                    <h3>Communication Skills</h3>
+                    <div class="cert-issuer">MINDLUSTER</div>
+                    <div class="cert-date">13 AUG 2023</div>
+                    <a href="https://www.linkedin.com/posts/jatin-pardeshi-3a6994347_mind-luster-communication-skills-certificate-activity-7303062282932994048-VKCN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFbSEi4BeJeL9Oj4BTUsx8RJ1MNg-E-kDgg">LinkedIn <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Experience: both internships inside same section (fixed mismatched tags) -->
+        <section id="experience" class="fade-in-section">
+            <h2>05. Work Experience</h2>
+
+            <div class="job">
+                <h3>Prodigy Infotech</h3>
+                <p><strong>Cybersecurity Intern</strong> | March 2025 - April 2025</p>
+                <ul> <a href="https://prodigyinfotech.dev/verify?cin=PIT/APR25/01555" 
+                        target="_blank" rel="noopener"
+                        title="Download intership certificate">
+                        <i class="fas fa-file-alt"></i>
+                    </a>
+                    <li>Enhanced protection of sensitive data by supporting security policy development and enforcement.</li>
+                    <li>Engaged in penetration testing exercises to evaluate security measures and identify vulnerabilities.</li>
+                    <li>Collaborated in scenario-based exercises to improve response strategies for cyber threats.</li>
+                    <li>Strengthened protection against phishing threats through specialized cybersecurity training.</li>
+                    <li>Applied cryptographic concepts directly to real-world scenarios during internship projects.</li>
+                    <li>Developed Python scripts for automating security tasks and vulnerability scanning.</li>
+                     
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>Pinnacle Labs</h3>
+                <p><strong>Cybersecurity Intern</strong> | August 29, 2025 - September 28, 2025</p>
+                <ul> <a href="https://pinnaclelabs.tech/certificate-verification/?rid=UEwvMjAyNS9BVUcxMy8xMjVKYXRpbiBQYXJkZXNoaQ==" 
+                        target="_blank" 
+                        rel="noopener"
+                        title="Download intership certificate">
+                        <i class="fas fa-file-alt"></i>
+                    </a>
+                    <li>Developed a secure keylogger-based monitoring website to analyze user activity patterns and demonstrate security vulnerabilities ethically.</li>
+                    <li>Designed and implemented a text encryption tool using cryptographic algorithms to protect sensitive information from unauthorized access.</li>
+                    <li>Created an image encryption utility that converts image data into unreadable formats to ensure strong confidentiality in digital media storage.</li>
+                    <li>Built a Python-based password analyzer tool to detect weak passwords and enhance user authentication security standards.</li>
+                    <li>Integrated encryption mechanisms and input validation techniques to strengthen overall security across all developed tools.</li>
+                    <li>Gained hands-on experience in secure coding practices by implementing encryption, hashing, and data-protection functions in real-world projects.</li>
+                
+                </ul>
+            </div>
+        </section>
+
+        <section id="education" class="fade-in-section">
+            <h2>06. Education</h2>
+            <div class="education-grid">
+                <div class="education-item">
+                    <h3>Bachelor of Science in Cyber Security & Digital Science</h3>
+                    <p><strong>MIT Art, Commerce And Science University</strong></p>
+                    <p>Alandi (Pune), Maharashtra</p>
+                    <p style="margin-top: 1rem; color: #8b949e;">Relevant Coursework: Network Security, Cryptography, Ethical Hacking, Digital Forensics, Secure Software Development, Cloud Security</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="fade-in-section">
+            <h2>07. Get In Touch</h2>
+            <p>I'm actively seeking cybersecurity opportunities where I can apply my skills in threat detection, penetration testing, and security analysis. Let's connect to discuss how I can contribute to your security team!</p>
+            <a href="mailto:tryjatin47@gmail.com" class="contact-email">tryjatin47@gmail.com</a>
+            <p><strong>Phone:</strong> <a href="tel:+919823980071">+91 98239 80071</a></p>
+            <p><strong>Location:</strong> Pune, Maharashtra, India</p>
+            <p><strong>Available for:</strong> Full-time positions, Internships, Freelance Security Audits</p>
+             <p>You can also connect with me on my social platforms:</p>
+        <div class="social-links" style="margin-top: 1rem;">
+            <a href="https://www.linkedin.com/in/jatin-pardeshi-3a6994347" target="_blank" rel="noopener">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/Jatin-pardeshi" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://tryhackme.com/p/yourprofile" target="_blank" rel="noopener">
+                <i class="fas fa-flag"></i>
+            </a>
+            <a href="https://freeimage.host/i/img-20250608-130752.fAQA3MJ" 
+                target="_blank" 
+                rel="noopener"
+                title="Download Resume">
+                <i class="fas fa-file-alt"></i>
+            </a>
+
+        </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Designed & Built by Jatin Pardeshi &copy; 2025 | Secured with HTTPS 🔒</p>
+    </footer>
+
+<script>
+/* ---------- Project data ---------- */
+const projects = [
+    {
+        title: "Caesar Cipher Encryption Tool",
+        description: "Interactive Python-based encryption/decryption tool implementing Caesar cipher algorithm with GUI interface for educational purposes.",
+        tags: ["Python", "Cryptography", "Tkinter"],
+        category: "encryption",
+        github: "https://github.com/Jatin-pardeshi/PRODIGY_CS_01.git",
+        demo: null,
+        icon: "fa-lock"
+    },
+    {
+        title: "Password Strength Analyzer",
+        description: "Advanced password complexity checker using regex patterns, entropy calculation, and breach database checking via HaveIBeenPwned API.",
+        tags: ["Python", "Security", "API"],
+        category: "tools",
+        github: "https://github.com/Jatin-pardeshi/PRODIGY_CS_3.git",
+        demo: null,
+        icon: "fa-key"
+    },
+    {
+    
+        title: "Image Encryption Tool",
+        description: "Advanced image encryption utility that converts images into unreadable ciphertext using pixel-level manipulation and cryptographic algorithms, ensuring secure storage and transfer of sensitive visual data. Supports reversible decryption, custom keys, and protection against unauthorized access.",
+        tags: ["Python", "Cryptography", "Pillow", "Security"],
+        category: "tool",
+        github: "https://github.com/Jatin-pardeshi/PRODIGY_CS_02.git",
+        demo: null,
+        icon: "fa-image"
+    },
+    {
+        title: "Keylogger Detection / Analysis Website",
+        description: "Web-based monitoring tool built to detect and analyze keylogging behavior and user activity patterns, highlighting potential security vulnerabilities and improving awareness of malicious input logging.",
+        tags: ["Python", "Malware Analysis", "Security Tools"],
+        category: "tools",
+        github: "https://github.com/Jatin-pardeshi/PRODIGY_CS_04.git",
+        demo: null,
+        icon: "fa-keyboard"
+    },
+    {
+        title: "Keylogger Detection System",
+        description: "Windows-based detection tool that monitors running processes and identifies suspicious keylogging behavior using behavioral analysis.",
+        tags: ["Python", "Malware Analysis", "Windows"],
+        category: "tools",
+        github: "https://github.com/Jatin-pardeshi/Keylogger-Tool-.git",
+        demo: null,
+        icon: "fa-keyboard"
+    },
+
+    {
+        title: "Image Encryption 2.0",
+        description: "Python-based cryptographic utility that transforms images into fully encrypted formats, protecting media files from unauthorized access and ensuring secure storage.",
+        tags: ["Python", "Cryptography", "Image Security"],
+        category: "encryption",
+        github: "https://github.com/Jatin-pardeshi/Image-encryption-tool.git",
+        demo: null,
+        icon: "fa-image"
+    },
+
+
+
+   {
+        title: "Vulnerability Scanner",
+        description: "Custom-built vulnerability assessment tool that scans systems and applications for security weaknesses, identifying misconfigurations and potential exploit points.",
+        tags: ["Python", "Security Tools", "Vulnerability"],
+        category: "tools",
+        github: "https://github.com/Jatin-pardeshi/vulnerability-scanner.git",
+        demo: null,
+        icon: "fa-search"
+    },
+
+    {
+        title: "SQL Injection Tester",
+        description: "Automated testing tool for detecting SQL injection vulnerabilities with multiple payload types and detection techniques.",
+        tags: ["Python", "Web Security", "SQL"],
+        category: "web",
+        github: "https://github.com/Jatin-pardeshi/sql-injection-tester",
+        demo: null,
+        icon: "fa-database"
+    },
+    {
+        title: "Phishing Email Detector",
+        description: "Machine learning-based email classifier that identifies phishing attempts by analyzing headers, content, and sender reputation.",
+        tags: ["Python", "ML", "Email Security"],
+        category: "tools",
+        github: "https://github.com/Jatin-pardeshi/phishing-detector",
+        demo: null,
+        icon: "fa-envelope"
+    },
+    {
+        title: "Hash Cracker",
+        description: "Dictionary-based hash cracking tool supporting MD5, SHA1, SHA256 with rainbow table generation and GPU acceleration support.",
+        tags: ["Python", "Cryptography", "Hashcat"],
+        category: "encryption",
+        github: "https://github.com/Jatin-pardeshi/hash-cracker",
+        demo: null,
+        icon: "fa-hashtag"
+    },
+    {
+        title: "Wi-Fi Security Auditor",
+        description: "Wireless network security assessment tool for analyzing WPA/WPA2 security, detecting rogue access points, and monitoring deauth attacks.",
+        tags: ["Python", "WiFi", "Network"],
+        category: "network",
+        github: "https://github.com/Jatin-pardeshi/wifi-auditor",
+        demo: null,
+        icon: "fa-wifi"
+    },
+    {
+        title: "Web Directory Fuzzer",
+        description: "Fast directory and file discovery tool for web applications with custom wordlists, recursive scanning, and response filtering.",
+        tags: ["Python", "Web Security", "Pentesting"],
+        category: "web",
+        github: "https://github.com/Jatin-pardeshi/web-fuzzer",
+        demo: null,
+        icon: "fa-folder"
+    },
+    {
+        title: "Ransomware Simulator",
+        description: "Educational ransomware simulation demonstrating encryption techniques and attack vectors in a controlled, reversible environment.",
+        tags: ["Python", "Malware", "Education"],
+        category: "encryption",
+        github: "https://github.com/Jatin-pardeshi/ransomware-sim",
+        demo: null,
+        icon: "fa-virus"
+    },
+
+    {
+    title: "Food Restaurant Website",
+    description: "Responsive multi-page restaurant website featuring an elegant UI, interactive menu, and optimized layout to provide users with a seamless browsing and ordering experience.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    category: "web",
+    github: "https://github.com/Jatin-pardeshi/Food-Restaurants-Website-.git",
+    demo: null,
+    icon: "fa-utensils"
+},
+
+    {
+    title: "APPLE calculater",
+    description: "Interactive calculator application designed with a modern UI inspired by the Apple iOS interface, delivering smooth animations and accurate arithmetic operations.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    category: "web",
+    github: "https://github.com/Jatin-pardeshi/J-calculater.git",
+    demo: "https://your-demo-link.com",
+    icon: "fa-calculator"
+},
+{
+    title: "Packet Sniffer & Disclaimer Tool",
+    description: "Custom network sniffer built with Scapy for capturing and analyzing packets, including an integrated legal disclaimer to promote ethical use and security awareness.",
+    tags: ["Python", "Scapy", "Network Security"],
+    category: "network",
+    github: "https://github.com/Jatin-pardeshi/PRODIGY_CS_05.git",
+    demo: null,
+    icon: "fa-network-wired"
+},
+
+
+];
+
+/* ---------- Render projects ---------- */
+function renderProjects(filter = 'all') {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const filteredProjects = filter === 'all'
+        ? projects
+        : projects.filter(p => p.category === filter);
+
+    filteredProjects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        // safe defaults for icon (ensure fa prefix + icon name)
+        const iconClass = project.icon ? `fa ${project.icon}` : 'fa fa-folder';
+        card.innerHTML = `
+            <div class="project-header">
+                <i class="${iconClass} project-icon"></i>
+                <div class="project-links">
+                    ${project.github ? `<a href="${project.github}" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>` : ''}
+                    ${project.demo ? `<a href="${project.demo}" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i></a>` : ''}
+                </div>
+            </div>
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <div class="project-tags">
+                ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+/* ---------- Filter buttons ---------- */
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+});
+
+/* ---------- Initial render ---------- */
+renderProjects();
+
+/* ---------- Typing effect (start safely even if DOMContentLoaded already fired) ---------- */
+const typingText = document.getElementById('typing-text');
+const textArray = ["Cyber Security Student", "Aspiring Security Analyst", "Ethical Hacker", "Blue Teamer", "Penetration Tester"];
+let textArrayIndex = 0;
+let charIndex = 0;
+
+function type() {
+    if (!typingText) return;
+    if (charIndex < textArray[textArrayIndex].length) {
+        typingText.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+    } else {
+        setTimeout(erase, 1200);
+    }
+}
+
+function erase() {
+    if (!typingText) return;
+    if (charIndex > 0) {
+        typingText.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+    } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, 800);
+    }
+}
+
+setTimeout(() => { if (typingText) type(); }, 800);
+
+/* ---------- Fade-in sections ---------- */
+const sections = document.querySelectorAll('.fade-in-section');
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+sections.forEach(section => { sectionObserver.observe(section); });
+
+/* ---------- Animated counters ---------- */
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target')) || 0;
+    const duration = 1600;
+    const stepTime = 16;
+    const steps = Math.max(Math.floor(duration / stepTime), 1);
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target + '+';
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, stepTime);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const counter = entry.target.querySelector('.stat-number');
+            if (counter && !counter.classList.contains('animated')) {
+                counter.classList.add('animated');
+                animateCounter(counter);
+            }
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-box').forEach(box => {
+    counterObserver.observe(box);
+});
+
+/* ---------- Skill bars animation ---------- */
+const skillBarObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const fill = entry.target.querySelector('.skill-bar-fill');
+            if (fill && !fill.classList.contains('animated')) {
+                fill.classList.add('animated');
+                const width = fill.getAttribute('data-width') || 0;
+                setTimeout(() => {
+                    fill.style.width = width + '%';
+                }, 100);
+            }
+        }
+    });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.skill-bar-container').forEach(container => {
+    skillBarObserver.observe(container);
+});
+
+/* ---------- Vanta background ---------- */
+if (typeof VANTA !== 'undefined') {
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xff00ff,
+      backgroundColor: 0x0a0a0f,
+      points: 15.00,
+      maxDistance: 25.00,
+      spacing: 18.00
+    });
+}
+</script>
+</body>
+</html>
